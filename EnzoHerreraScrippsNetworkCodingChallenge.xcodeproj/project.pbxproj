@@ -16,7 +16,7 @@
 		541433F9276E6F8A005C6F8B /* EnzoHerreraScrippsNetworkCodingChallengeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 541433F8276E6F8A005C6F8B /* EnzoHerreraScrippsNetworkCodingChallengeUITestsLaunchTests.swift */; };
 		54143407276E7040005C6F8B /* ItunesAPIModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54143406276E7040005C6F8B /* ItunesAPIModels.swift */; };
 		5414340C276E7975005C6F8B /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5414340B276E7975005C6F8B /* ListView.swift */; };
-		5414340E276E7ACE005C6F8B /* FilterModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5414340D276E7ACE005C6F8B /* FilterModalView.swift */; };
+		5414340E276E7ACE005C6F8B /* FilterSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5414340D276E7ACE005C6F8B /* FilterSettingsView.swift */; };
 		54143410276E8447005C6F8B /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5414340F276E8447005C6F8B /* DetailView.swift */; };
 		54143412276E84D9005C6F8B /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54143411276E84D9005C6F8B /* MainViewModel.swift */; };
 		54143414276E9274005C6F8B /* MainModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54143413276E9274005C6F8B /* MainModel.swift */; };
@@ -53,7 +53,7 @@
 		541433F8276E6F8A005C6F8B /* EnzoHerreraScrippsNetworkCodingChallengeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnzoHerreraScrippsNetworkCodingChallengeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		54143406276E7040005C6F8B /* ItunesAPIModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItunesAPIModels.swift; sourceTree = "<group>"; };
 		5414340B276E7975005C6F8B /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
-		5414340D276E7ACE005C6F8B /* FilterModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModalView.swift; sourceTree = "<group>"; };
+		5414340D276E7ACE005C6F8B /* FilterSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingsView.swift; sourceTree = "<group>"; };
 		5414340F276E8447005C6F8B /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		54143411276E84D9005C6F8B /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		54143413276E9274005C6F8B /* MainModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainModel.swift; sourceTree = "<group>"; };
@@ -159,7 +159,7 @@
 				5414340A276E7959005C6F8B /* Components */,
 				5414340B276E7975005C6F8B /* ListView.swift */,
 				541433DD276E6F86005C6F8B /* MainView.swift */,
-				5414340D276E7ACE005C6F8B /* FilterModalView.swift */,
+				5414340D276E7ACE005C6F8B /* FilterSettingsView.swift */,
 				5414340F276E8447005C6F8B /* DetailView.swift */,
 			);
 			path = Views;
@@ -325,7 +325,7 @@
 				54143410276E8447005C6F8B /* DetailView.swift in Sources */,
 				541433DE276E6F86005C6F8B /* MainView.swift in Sources */,
 				54143407276E7040005C6F8B /* ItunesAPIModels.swift in Sources */,
-				5414340E276E7ACE005C6F8B /* FilterModalView.swift in Sources */,
+				5414340E276E7ACE005C6F8B /* FilterSettingsView.swift in Sources */,
 				541433DC276E6F86005C6F8B /* EnzoHerreraScrippsNetworkCodingChallengeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
