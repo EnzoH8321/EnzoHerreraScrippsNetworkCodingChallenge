@@ -37,13 +37,8 @@ extension MainViewModel {
 	func fetchDatafromItunesAPI(forTerm term: String, forEntities entity: iTunesEntities) {
 
 		//Tests to see if a user selected an entity from the settings view
-		var entityType: String? {
-			if (entity == .none) {
-				return nil
-			} else {
+		var entityType: String {
 				return entity.rawValue
-			}
-
 		}
 
 		var urlComponents = URLComponents()
@@ -54,7 +49,7 @@ extension MainViewModel {
 			URLQueryItem(name: "term", value: term),
 			URLQueryItem(name: "limit", value: "25"),
 			//Add a query if the user selected an entity. If not, set empty values.)
-			entityType != nil ? URLQueryItem(name: "entity", value: "\(entityType)") : URLQueryItem(name: "entity", value: "movie, podcast, musicVideo, mix, audiobook, allTrack")
+			entityType != iTunesEntities.none.rawValue ? URLQueryItem(name: "entity", value: "\(entityType)") : URLQueryItem(name: "entity", value: "movie, podcast, musicVideo, mix, audiobook, allTrack")
 		]
 
 		//Possibility url could come back invalid
@@ -64,6 +59,7 @@ extension MainViewModel {
 
 		var request = URLRequest(url: url)
 		request.httpMethod = "GET"
+
 
 		print(request)
 
@@ -78,7 +74,7 @@ extension MainViewModel {
 					DispatchQueue.main.async {
 						self.objectWillChange.send()
 						self.viewModelSetNewiTunesData(forData: decodedJSONValue)
-						print("success -> \(self.dataModel.arrayOfItunesData)")
+						print("success")
 					}
 
 				} catch let error as NSError {

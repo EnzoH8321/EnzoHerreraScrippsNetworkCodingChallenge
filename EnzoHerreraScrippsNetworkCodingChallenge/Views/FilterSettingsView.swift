@@ -12,6 +12,7 @@ import SwiftUI
 struct FilterSettingsView: View {
 
 	@EnvironmentObject var viewModel: MainViewModel
+	@Environment(\.presentationMode) var presentationMode
 
 	//Capitalization reflects what's expected for url parameter. For a better UI, you can use gramatically correct capitialization in the UI and do a conversion later. Enums provide misspelling protection.
 	var entitySelections = [iTunesEntities.none.rawValue,iTunesEntities.movie.rawValue, iTunesEntities.podcast.rawValue, iTunesEntities.musicArtist.rawValue, iTunesEntities.musicVideo.rawValue, iTunesEntities.audiobook.rawValue, iTunesEntities.shortFilm.rawValue, iTunesEntities.tvEpisode.rawValue, iTunesEntities.software.rawValue, iTunesEntities.ebook.rawValue]
@@ -21,40 +22,45 @@ struct FilterSettingsView: View {
 
 
 	var body: some View {
-		VStack {
-			Spacer()
-			//If your Picker has to choose from a large variety of elements, consider using the .wheel pickerStyle.
-			HStack {
+		NavigationView {
+			VStack {
 				Spacer()
-				Text("Media Type")
-				Spacer()
+				//If your Picker has to choose from a large variety of elements, consider using the .wheel pickerStyle.
+				HStack {
+					Spacer()
+					Text("Media Type")
+					Spacer()
 
-				//TODO: Add functionality to create a multi choice picker
-				Picker("Please choose a media type", selection: $selectedMedia) {
-					ForEach(entitySelections, id: \.self) {
-						Text($0)
+					//TODO: Add functionality to create a multi choice picker
+					Picker("Please choose a media type", selection: $selectedMedia) {
+						ForEach(entitySelections, id: \.self) {
+							Text($0)
+						}
+
 					}
+					.accessibilityIdentifier("Media Type")
 
+					Spacer()
 				}
-				.accessibilityIdentifier("Media Type")
-
-
+				//TODO: If you wanted, you could add more filters below.
 
 				Spacer()
-			}
-			//TODO: If you wanted, you could add more filters below.
 
-			Spacer()
-			
+			}
+			.navigationBarTitleDisplayMode(.inline)
+			.onAppear {
+				self.selectedMedia = viewModel.dataModel.entityValue.rawValue
+			}
+
 		}
-		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			ToolbarItemGroup(placement: .automatic) {
-				
+
 				Button("Apply Filters", action: {
 
 					//Converts the selectedMedia string to a iTunesEntity.
 					//TODO: Once Apple fixes the bug with the Picker component not recognizing enums, you can remove the below conversion code.
+					
 					var convertedPickerValue: iTunesEntities
 
 					switch(selectedMedia) {
@@ -83,9 +89,13 @@ struct FilterSettingsView: View {
 					}
 
 					viewModel.viewModelSetNewEntityfilter(forEntity: convertedPickerValue)
+
+					
+					self.presentationMode.wrappedValue.dismiss()
 				})
 			}
 		}
+
 	}
 }
 
