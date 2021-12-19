@@ -26,5 +26,6 @@ enum NetworkError: Error {
 	case noReturnedResultsError
 	case invalidUrlError
 	case generalFetchError
+	case decodingError
 }
 

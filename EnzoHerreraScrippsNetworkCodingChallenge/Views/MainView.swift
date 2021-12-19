@@ -27,9 +27,11 @@ struct ContentView: View {
 
 							switch result {
 							case .success(let count):
-								print("Success")
+								errorAlert = false
 							case .failure(let error):
+								errorAlert = true
 
+								//For larger projects, you can do more with these Errors. 
 								switch error {
 								case .generalFetchError:
 									print("Fetch Error")
@@ -37,6 +39,8 @@ struct ContentView: View {
 									print ("No Results Returned")
 								case .invalidUrlError:
 									print("Invalid URL")
+								case .decodingError:
+									print("Issue Decoding JSON")
 								}
 								
 							}

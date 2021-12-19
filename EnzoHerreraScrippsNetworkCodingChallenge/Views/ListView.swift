@@ -15,7 +15,7 @@ struct ListView: View {
 
 			List {
 				ForEach(viewModel.viewModelArrayOfItunesData, id: \.self) { element in
-					NavigationLink(destination: DetailView(urlString: element.artworkUrl100 ?? "")) {
+					NavigationLink(destination: DetailView(urlString: element.artworkUrl100 ?? "", trackName: element.trackName ?? "", artistName: element.artistName ?? "", explicitContent: element.collectionExplicitness ?? "")) {
 						ListViewCell(trackName: element.trackName ?? "", artistName: element.artistName ?? "", explicitness: element.trackExplicitness ?? "", mediaType: element.kind ?? "")
 					}
 				}

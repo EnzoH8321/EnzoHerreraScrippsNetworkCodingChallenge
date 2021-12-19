@@ -11,7 +11,7 @@ class MainViewModel: ObservableObject {
 
 	//Set the dataModel as a Publisher to allow easy view refreshes
 	@Published var dataModel = MainModel()
-//	@Published var error: ErrorEnum?
+	//	@Published var error: ErrorEnum?
 
 	var viewModelArrayOfItunesData: [iTunesGeneralModel] {
 		return self.dataModel.arrayOfItunesData
@@ -63,16 +63,18 @@ extension MainViewModel {
 		var request = URLRequest(url: url)
 		request.httpMethod = "GET"
 
-		print(request)
-
 		URLSession.shared.dataTask(with: request) { data, response, error in
 
 			DispatchQueue.main.async {
 
-			if let verifiedData = data {
+				if (error != nil) {
+					completionHandler(.failure(.decodingError))
+				}
 
-				do {
-					let decodedJSONValue = try JSONDecoder().decode(iTunesResponseMain.self, from: verifiedData).results
+				if let verifiedData = data {
+
+					do {
+						let decodedJSONValue = try JSONDecoder().decode(iTunesResponseMain.self, from: verifiedData).results
 
 
 						self.objectWillChange.send()
@@ -81,20 +83,21 @@ extension MainViewModel {
 						if (decodedJSONValue.count == 0) {
 							self.viewModelSetNewiTunesData(forData: decodedJSONValue)
 							completionHandler(.failure(.noReturnedResultsError))
-							print("nothing found")
+							print("Nothing Found")
 						} else {
 							self.viewModelSetNewiTunesData(forData: decodedJSONValue)
 							print("success")
 						}
 
 
-				} catch let error as NSError {
-					//Failure most likely means there was an issue decoding the JSON.
-					completionHandler(.failure(.generalFetchError))
-					print(error)
+					} catch let error as NSError {
+						//Failure most likely means there was an issue decoding the JSON.
+						completionHandler(.failure(.decodingError))
+						print(error)
+					}
+
 				}
 
-			}
 			}
 
 		}.resume()
