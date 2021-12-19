@@ -21,30 +21,10 @@ enum iTunesEntities: String {
 	case none
 }
 
-//Implement basic error handling
-enum ErrorEnum: Identifiable, Error {
-	
-	case noResultsError
+//Implement for Network Errors
+enum NetworkError: Error {
+	case noReturnedResultsError
 	case invalidUrlError
 	case generalFetchError
-
-	var id: UUID {
-		get {
-			UUID()
-		}
-	}
-
-	var alert: Alert {
-		switch (self) {
-		case .noResultsError:
-			return Alert(title: Text("Error"), message: Text("Search returned no results"), dismissButton: .default(Text("Try Again")))
-		case .invalidUrlError:
-			return Alert(title: Text("Error"), message: Text("Invalid URL"), dismissButton: .default(Text("Try Again")))
-		case .generalFetchError:
-			return Alert(title: Text("Error"), message: Text("Fetch Error"), dismissButton: .default(Text("Try Again")))
-		}
-
-	}
 }
-
 

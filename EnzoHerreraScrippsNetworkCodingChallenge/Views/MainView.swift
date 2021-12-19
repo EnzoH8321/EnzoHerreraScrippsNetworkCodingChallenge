@@ -11,6 +11,7 @@ struct ContentView: View {
 
 	@EnvironmentObject var viewModel: MainViewModel
 	@State var searchString = ""
+	@State var errorAlert = false
 
 	var body: some View {
 		NavigationView {
@@ -21,7 +22,25 @@ struct ContentView: View {
 						.accessibilityLabel("Search Field")
 
 					Button("Search", action: {
-						viewModel.fetchDatafromItunesAPI(forTerm: searchString, forEntities: self.viewModel.viewModelEntityValue)
+						
+						viewModel.fetchDatafromItunesAPI(forTerm: searchString, forEntities: self.viewModel.viewModelEntityValue) { result in
+
+							switch result {
+							case .success(let count):
+								print("Success")
+							case .failure(let error):
+
+								switch error {
+								case .generalFetchError:
+									print("Fetch Error")
+								case .noReturnedResultsError:
+									print ("No Results Returned")
+								case .invalidUrlError:
+									print("Invalid URL")
+								}
+								
+							}
+						}
 					})
 						.accessibilityLabel("Search Button")
 
@@ -37,9 +56,7 @@ struct ContentView: View {
 					.accessibilityLabel("list of returned results")
 			}
 			//Checks the model to see if no results were returned. User is warned so they can try a different query
-			.alert(item: $viewModel.error) { error in
-				error.alert
-			}
+			.alert(isPresented: $errorAlert, content: {Alert(title: Text("Error"), message: Text("Unable to Fetch"))})
 		}
 		.navigationBarHidden(true)
 	}

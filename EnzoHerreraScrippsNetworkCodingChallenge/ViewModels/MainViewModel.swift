@@ -11,7 +11,7 @@ class MainViewModel: ObservableObject {
 
 	//Set the dataModel as a Publisher to allow easy view refreshes
 	@Published var dataModel = MainModel()
-	@Published var error: ErrorEnum?
+//	@Published var error: ErrorEnum?
 
 	var viewModelArrayOfItunesData: [iTunesGeneralModel] {
 		return self.dataModel.arrayOfItunesData
@@ -29,21 +29,17 @@ class MainViewModel: ObservableObject {
 	func viewModelSetNewEntityfilter(forEntity entity: iTunesEntities) {
 		dataModel.setNewEntityFilter(forEntity: entity)
 	}
-	//Error
-	func viewModelSetNewError(setError error: ErrorEnum) {
-		self.error = error
-	}
 	
 }
 
 //Networking Codef
 extension MainViewModel {
 	//As you add more filters, you must also include them as arguments to this function
-	func fetchDatafromItunesAPI(forTerm term: String, forEntities entity: iTunesEntities) {
+	func fetchDatafromItunesAPI(forTerm term: String, forEntities entity: iTunesEntities, completionHandler: @escaping (Result<[iTunesGeneralModel], NetworkError>) -> Void) {
 
 		//Tests to see if a user selected an entity from the settings view
 		var entityType: String {
-				return entity.rawValue
+			return entity.rawValue
 		}
 
 		var urlComponents = URLComponents()
@@ -60,7 +56,8 @@ extension MainViewModel {
 
 		//Possibility url could come back invalid
 		guard let url = urlComponents.url else {
-			return self.error = ErrorEnum.invalidUrlError
+			completionHandler(.failure(.invalidUrlError))
+			return
 		}
 
 		var request = URLRequest(url: url)
@@ -70,36 +67,35 @@ extension MainViewModel {
 
 		URLSession.shared.dataTask(with: request) { data, response, error in
 
+			DispatchQueue.main.async {
+
 			if let verifiedData = data {
 
 				do {
 					let decodedJSONValue = try JSONDecoder().decode(iTunesResponseMain.self, from: verifiedData).results
 
-					DispatchQueue.main.async {
+
 						self.objectWillChange.send()
 
 						//Empty array means that no matches to the query were found
 						if (decodedJSONValue.count == 0) {
 							self.viewModelSetNewiTunesData(forData: decodedJSONValue)
-							self.error = ErrorEnum.noResultsError
+							completionHandler(.failure(.noReturnedResultsError))
 							print("nothing found")
 						} else {
-							print(decodedJSONValue)
 							self.viewModelSetNewiTunesData(forData: decodedJSONValue)
 							print("success")
 						}
-					}
+
 
 				} catch let error as NSError {
 					//Failure most likely means there was an issue decoding the JSON.
-					self.error = ErrorEnum.noResultsError
+					completionHandler(.failure(.generalFetchError))
 					print(error)
 				}
 
 			}
-			//If you are here, the if-let statement has failed and it means that there was an error somewhere in your fetch request.
-			self.error = ErrorEnum.generalFetchError
-			print(error)
+			}
 
 		}.resume()
 	}
