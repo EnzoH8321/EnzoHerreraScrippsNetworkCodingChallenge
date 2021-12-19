@@ -19,6 +19,7 @@ struct ContentView: View {
 
 					TextField("Search Prompt", text: $searchString)
 						.accessibilityLabel("Search Field")
+
 					Button("Search", action: {
 						viewModel.fetchDatafromItunesAPI(forTerm: searchString, forEntities: self.viewModel.viewModelEntityValue)
 					})
@@ -32,12 +33,14 @@ struct ContentView: View {
 					.navigationBarHidden(true)
 
 				}
-
 				ListView()
 					.accessibilityLabel("list of returned results")
 			}
+			//Checks the model to see if no results were returned. User is warned so they can try a different query
+			.alert(item: $viewModel.error) { error in
+				error.alert
+			}
 		}
-		
 		.navigationBarHidden(true)
 	}
 }

@@ -13,7 +13,8 @@ import Foundation
 struct MainModel {
 
 	private(set) var arrayOfItunesData: [iTunesGeneralModel] = []
-	//If null, assume user wants to use the all filter
+
+	//None means that the user wants to use a broad search, akin to all"
 	private(set) var entityValue: iTunesEntities = .none
 
 	//Functions
@@ -24,8 +25,6 @@ struct MainModel {
 	mutating func setNewEntityFilter(forEntity entity: iTunesEntities) {
 		self.entityValue = entity
 	}
-
-
 
 }
 
