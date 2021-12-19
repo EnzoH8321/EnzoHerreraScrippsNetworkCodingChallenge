@@ -32,7 +32,7 @@ class MainViewModel: ObservableObject {
 	
 }
 
-//Networking Codef
+//Networking Code
 extension MainViewModel {
 	//As you add more filters, you must also include them as arguments to this function
 	func fetchDatafromItunesAPI(forTerm term: String, forEntities entity: iTunesEntities, completionHandler: @escaping (Result<[iTunesGeneralModel], NetworkError>) -> Void) {

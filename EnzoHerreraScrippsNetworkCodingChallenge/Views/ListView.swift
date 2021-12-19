@@ -12,17 +12,16 @@ struct ListView: View {
 	@EnvironmentObject var viewModel: MainViewModel
 
 	var body: some View {
-		NavigationView {
+
 			List {
 				ForEach(viewModel.viewModelArrayOfItunesData, id: \.self) { element in
-					NavigationLink(destination: DetailView()) {
+					NavigationLink(destination: DetailView(urlString: element.artworkUrl100 ?? "")) {
 						ListViewCell(trackName: element.trackName ?? "", artistName: element.artistName ?? "", explicitness: element.trackExplicitness ?? "", mediaType: element.kind ?? "")
-
 					}
 				}
 				.listStyle(.grouped)
 			}
-		}
+
 
 	}
 

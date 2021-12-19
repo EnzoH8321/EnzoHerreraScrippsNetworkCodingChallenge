@@ -45,9 +45,9 @@ struct iTunesGeneralModel: Codable, Hashable {
 	var collectionName: String?
 	var collectionCensoredName: String?
 	var trackCensoredName: String?
-	var artworkUrl30: URL?
-	var artworkUrl60: URL?
-	var artworkUrl100: URL?
+	var artworkUrl30: String?
+	var artworkUrl60: String?
+	var artworkUrl100: String?
 	var artistViewUrl: URL?
 	var trackViewUrl: URL?
 	var collectionViewUrl: URL?
