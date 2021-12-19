@@ -12,12 +12,12 @@ import Foundation
 
 struct MainModel {
 
-	private(set) var arrayOfItunesData: [iTunesBaseProtocol] = []
+	private(set) var arrayOfItunesData: [iTunesGeneralModel] = []
 	//If null, assume user wants to use the all filter
 	private(set) var entityValue: iTunesEntities = .none
 
 	//Functions
-	mutating func setNewItunesData(forData dataArray: [iTunesBaseProtocol]) {
+	mutating func setNewItunesData(forData dataArray: [iTunesGeneralModel]) {
 		self.arrayOfItunesData = dataArray
 	}
 

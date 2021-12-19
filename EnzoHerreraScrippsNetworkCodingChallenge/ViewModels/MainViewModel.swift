@@ -12,7 +12,7 @@ class MainViewModel: ObservableObject {
 	//Set the dataModel as a Publisher to allow easy view refreshes
 	@Published var dataModel = MainModel()
 
-	var viewModelArrayOfItunesData: [iTunesBaseProtocol] {
+	var viewModelArrayOfItunesData: [iTunesGeneralModel] {
 		return self.dataModel.arrayOfItunesData
 	}
 
@@ -21,7 +21,7 @@ class MainViewModel: ObservableObject {
 	}
 
 	//Functions
-	func viewModelSetNewiTunesData(forData data: [iTunesBaseProtocol]) {
+	func viewModelSetNewiTunesData(forData data: [iTunesGeneralModel]) {
 		dataModel.setNewItunesData(forData: data)
 	}
 
@@ -54,7 +54,7 @@ extension MainViewModel {
 			URLQueryItem(name: "term", value: term),
 			URLQueryItem(name: "limit", value: "25"),
 			//Add a query if the user selected an entity. If not, set empty values.)
-			entityType != nil ? URLQueryItem(name: "entity", value: "\(entityType)") : URLQueryItem(name: "entity", value: "movie, album, allArtist, podcast, musicVideo, mix, audiobook, tvSeason, allTrack")
+			entityType != nil ? URLQueryItem(name: "entity", value: "\(entityType)") : URLQueryItem(name: "entity", value: "movie, podcast, musicVideo, mix, audiobook, allTrack")
 		]
 
 		//Possibility url could come back invalid

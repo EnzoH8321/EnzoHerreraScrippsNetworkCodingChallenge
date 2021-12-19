@@ -16,9 +16,11 @@ struct FilterSettingsView: View {
 	//Capitalization reflects what's expected for url parameter. For a better UI, you can use gramatically correct capitialization in the UI and do a conversion later. Enums provide misspelling protection.
 	var entitySelections = [iTunesEntities.none.rawValue,iTunesEntities.movie.rawValue, iTunesEntities.podcast.rawValue, iTunesEntities.musicArtist.rawValue, iTunesEntities.musicVideo.rawValue, iTunesEntities.audiobook.rawValue, iTunesEntities.shortFilm.rawValue, iTunesEntities.tvEpisode.rawValue, iTunesEntities.software.rawValue, iTunesEntities.ebook.rawValue]
 
-	@State private var selectedMedia = iTunesEntities.none
+	//TODO: We need to use a string here because as of SwiftUI 2.0, using an enum as the State of a picker component does not work. Check back later to see if they fixed this issue.
+	@State private var selectedMedia = "none"
 
-    var body: some View {
+
+	var body: some View {
 		VStack {
 			Spacer()
 			//If your Picker has to choose from a large variety of elements, consider using the .wheel pickerStyle.
@@ -32,8 +34,12 @@ struct FilterSettingsView: View {
 					ForEach(entitySelections, id: \.self) {
 						Text($0)
 					}
+
 				}
 				.accessibilityIdentifier("Media Type")
+
+
+
 				Spacer()
 			}
 			//TODO: If you wanted, you could add more filters below.
@@ -44,16 +50,47 @@ struct FilterSettingsView: View {
 		.navigationBarTitleDisplayMode(.inline)
 		.toolbar {
 			ToolbarItemGroup(placement: .automatic) {
+				
 				Button("Apply Filters", action: {
-					viewModel.viewModelSetNewEntityfilter(forEntity: selectedMedia)
+
+					//Converts the selectedMedia string to a iTunesEntity.
+					//TODO: Once Apple fixes the bug with the Picker component not recognizing enums, you can remove the below conversion code.
+					var convertedPickerValue: iTunesEntities
+
+					switch(selectedMedia) {
+					case "none":
+						convertedPickerValue = iTunesEntities.none
+					case "movie":
+						convertedPickerValue = iTunesEntities.movie
+					case "podcast":
+						convertedPickerValue = iTunesEntities.podcast
+					case "musicArtist":
+						convertedPickerValue = iTunesEntities.musicArtist
+					case "musicVideo":
+						convertedPickerValue = iTunesEntities.musicVideo
+					case "audiobook":
+						convertedPickerValue = iTunesEntities.audiobook
+					case "shortFilm":
+						convertedPickerValue = iTunesEntities.shortFilm
+					case "tvEpisode":
+						convertedPickerValue = iTunesEntities.tvEpisode
+					case "software":
+						convertedPickerValue = iTunesEntities.software
+					case "ebook":
+						convertedPickerValue = iTunesEntities.ebook
+					default:
+						convertedPickerValue = iTunesEntities.none
+					}
+
+					viewModel.viewModelSetNewEntityfilter(forEntity: convertedPickerValue)
 				})
 			}
 		}
-    }
+	}
 }
 
 struct FilterModalView_Previews: PreviewProvider {
-    static var previews: some View {
-        FilterSettingsView()
-    }
+	static var previews: some View {
+		FilterSettingsView()
+	}
 }
