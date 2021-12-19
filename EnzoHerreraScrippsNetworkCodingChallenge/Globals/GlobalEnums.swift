@@ -17,4 +17,5 @@ enum iTunesEntities: String {
 	case tvEpisode
 	case software
 	case ebook
+	case none
 }

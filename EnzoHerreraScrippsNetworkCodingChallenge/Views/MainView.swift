@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
 
+	@EnvironmentObject var viewModel: MainViewModel
 	@State var searchString = ""
 
 	var body: some View {
@@ -19,7 +20,7 @@ struct ContentView: View {
 					TextField("Search Prompt", text: $searchString)
 						.accessibilityLabel("Search Field")
 					Button("Search", action: {
-
+						viewModel.fetchDatafromItunesAPI(forTerm: searchString, forEntities: self.viewModel.viewModelEntityValue)
 					})
 						.accessibilityLabel("Search Button")
 

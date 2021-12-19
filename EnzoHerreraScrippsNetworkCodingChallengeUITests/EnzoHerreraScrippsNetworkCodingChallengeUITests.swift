@@ -21,7 +21,7 @@ class EnzoHerreraScrippsNetworkCodingChallengeUITests: XCTestCase {
     }
 
 
-	//Tests UI in the Main View
+	//Main View
 	func testExistanceOfComponents() throws {
 
 		let searchBar = app.textFields["Search Prompt"]
@@ -33,5 +33,15 @@ class EnzoHerreraScrippsNetworkCodingChallengeUITests: XCTestCase {
 		XCTAssert(button.exists)
 		XCTAssert(image.exists)
 	}
+
+	//FilterSettingsview
+
+	func testEntityPicker() {
+
+		let picker = app.pickerWheels.element
+		XCTAssert(picker.exists)
+
+	}
+
 
 }

@@ -8,23 +8,29 @@
 import SwiftUI
 
 struct ListView: View {
+
+	@EnvironmentObject var viewModel: MainViewModel
+
     var body: some View {
 		List {
-			ListViewCells()
-			ListViewCells()
-			ListViewCells()
+			ForEach(viewModel.viewModelArrayOfItunesData) { element in
+				ListViewCell()
 		}
     }
 }
 
 //For more complicated projects you may want to consider putting the cell's in a seperate file
-struct ListViewCells: View {
+struct ListViewCell: View {
+
+	var trackName: String
+	var artistName: String
+	var explicitness: String
 
 	var body: some View {
 		VStack {
-			Text("Track Name")
-			Text("Artist Name")
-			Text("Explicitness")
+			Text(trackName)
+			Text(artistName)
+			Text(explicitness)
 		}
 	}
 }
@@ -33,4 +39,5 @@ struct ListView_Previews: PreviewProvider {
     static var previews: some View {
         ListView()
     }
+}
 }
