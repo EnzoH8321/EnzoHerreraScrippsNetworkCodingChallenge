@@ -39,6 +39,7 @@ struct FilterSettingsView: View {
 
 					}
 					.accessibilityIdentifier("Media Type Picker")
+					
 
 					Spacer()
 				}
