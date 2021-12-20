@@ -60,9 +60,28 @@ class EnzoHerreraScrippsNetworkCodingChallengeTests: XCTestCase {
 		wait(for: [promise], timeout: 5)
 	}
 
+
+	func testNoParameterWorks() {
+		let expectation = XCTestExpectation(description: "No Parameter returns valid data")
+
+		mockFetchDatafromItunesAPI(forTerm: "Rolling Stones", forEntities: .none) { result in
+
+			switch result {
+			case .success(let success):
+				expectation.fulfill()
+			case .failure(let error):
+				print("Fail")
+			}
+
+		}
+
+		wait(for: [expectation], timeout: 10)
+
+	}
+
+
 	func testLimitParameterWorks() {
 
-		let dataArray = self.sut.dataModel.arrayOfItunesData
 		let expectation = XCTestExpectation(description: "Data stayed within Limit Parameter.")
 
 		mockFetchDatafromItunesAPI(forTerm: "Adele", forEntities: .none) { result in
@@ -70,7 +89,7 @@ class EnzoHerreraScrippsNetworkCodingChallengeTests: XCTestCase {
 			switch result {
 			case .success(let success):
 
-				if (dataArray.count < 26 ) {
+				if (success.count < 26 && success.count != 0 ) {
 					expectation.fulfill()
 				}
 
@@ -86,7 +105,6 @@ class EnzoHerreraScrippsNetworkCodingChallengeTests: XCTestCase {
 	//TODO: iTunes sometimes returns different entity results each query. Have not been able to figure out why. Further testing needs to be done with the entity parameter. For now, works about 90% of the time. 
 	func testEntityParameterWorks() {
 
-		let dataArray = self.sut.dataModel.arrayOfItunesData
 		let expectation = XCTestExpectation(description: "Data stayed within Entity Parameter")
 
 		mockFetchDatafromItunesAPI(forTerm: "Tom Cruise", forEntities: .movie) { result in
@@ -107,6 +125,25 @@ class EnzoHerreraScrippsNetworkCodingChallengeTests: XCTestCase {
 
 			case .failure(let error):
 				XCTFail()
+			}
+
+		}
+
+		wait(for: [expectation], timeout: 10)
+	}
+
+	func testInvalidTermShowsError() {
+
+		let expectation = XCTestExpectation(description: "Invalid term fails successfully")
+
+		mockFetchDatafromItunesAPI(forTerm: "sdfgsdfcvb", forEntities: .movie) { result in
+
+			switch result {
+			case .success(let success):
+				XCTFail("Successfully Ran")
+
+			case .failure(let error):
+				expectation.fulfill()
 			}
 
 		}
