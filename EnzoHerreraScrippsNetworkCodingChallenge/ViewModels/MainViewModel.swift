@@ -89,7 +89,6 @@ extension MainViewModel {
 							print("success")
 						}
 
-
 					} catch let error as NSError {
 						//Failure most likely means there was an issue decoding the JSON.
 						completionHandler(.failure(.decodingError))

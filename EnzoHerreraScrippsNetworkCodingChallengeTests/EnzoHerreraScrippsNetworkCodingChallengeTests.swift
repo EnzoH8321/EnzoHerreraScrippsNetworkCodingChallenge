@@ -62,18 +62,51 @@ class EnzoHerreraScrippsNetworkCodingChallengeTests: XCTestCase {
 
 	func testLimitParameterWorks() {
 
-		let dataArray = sut.dataModel.arrayOfItunesData
-		let expectation = XCTestExpectation(description: "Array Successfully filled Model with Data")
+		let dataArray = self.sut.dataModel.arrayOfItunesData
+		let expectation = XCTestExpectation(description: "Data stayed within Limit Parameter.")
 
 		mockFetchDatafromItunesAPI(forTerm: "Adele", forEntities: .none) { result in
 
 			switch result {
 			case .success(let success):
-				print("")
-				print(dataArray.count)
-				expectation.fulfill()
+
+				if (dataArray.count < 26 ) {
+					expectation.fulfill()
+				}
+
 			case .failure(let error):
-				print("")
+				print("Fail")
+			}
+
+		}
+
+		wait(for: [expectation], timeout: 10)
+	}
+
+	//TODO: iTunes sometimes returns different entity results each query. Have not been able to figure out why. Further testing needs to be done with the entity parameter. For now, works about 90% of the time. 
+	func testEntityParameterWorks() {
+
+		let dataArray = self.sut.dataModel.arrayOfItunesData
+		let expectation = XCTestExpectation(description: "Data stayed within Entity Parameter")
+
+		mockFetchDatafromItunesAPI(forTerm: "Tom Cruise", forEntities: .movie) { result in
+
+			switch result {
+			case .success(let success):
+			//Array of Itunes Data
+			let tempData = success
+				//If any element does not contain the entity, fails.
+				for element in tempData {
+					//Hard coded string below.
+					if ((element.kind?.contains("movie")) == nil)  {
+						XCTFail()
+					} else {
+						expectation.fulfill()
+					}
+				}
+
+			case .failure(let error):
+				XCTFail()
 			}
 
 		}
@@ -82,9 +115,11 @@ class EnzoHerreraScrippsNetworkCodingChallengeTests: XCTestCase {
 	}
 
 
+
 }
 
-//Create extension function that fakes fetchData from Itunes. For bigger projects/more thorough coverage, you can put these into seperate classes.
+//Create extension function that fakes fetchData from Itunes.
+//TODO: For bigger projects/more thorough coverage, you can put these into seperate classes with custom data.
 
 extension EnzoHerreraScrippsNetworkCodingChallengeTests {
 
