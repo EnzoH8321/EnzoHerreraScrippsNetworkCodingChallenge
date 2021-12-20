@@ -73,7 +73,7 @@ class EnzoHerreraScrippsNetworkCodingChallengeUITests: XCTestCase {
 	func testListAppearsAfterBadSearchTerm() {
 		let mainViewTextField = self.app.textFields["Search Field"]
 		mainViewTextField.tap()
-		mainViewTextField.typeText("Jamal")
+		mainViewTextField.typeText("zdfgzxb vxcvzgxcv")
 
 		let searchButton = self.app.buttons["Search Button"]
 		searchButton.tap()

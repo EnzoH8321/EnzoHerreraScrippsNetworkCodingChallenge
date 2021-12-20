@@ -20,13 +20,10 @@ struct ListView: View {
 						
 				}
 				.accessibilityIdentifier("List Cell")
-
 			}
 			.listStyle(.grouped)
 		}
 		.accessibilityIdentifier("List")
-
-
 	}
 
 	//For more complicated projects you may want to consider putting the cell's in a seperate file

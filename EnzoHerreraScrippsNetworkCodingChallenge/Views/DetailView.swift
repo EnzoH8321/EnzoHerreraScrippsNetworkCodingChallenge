@@ -29,7 +29,6 @@ struct DetailView: View {
 		}
 		//TODO: If you had more time, you could put a modified version of below code with the rest of the networking code. The best way would be to fetch the image during the initial fetch request.
 		.onAppear {
-
 			if let url = URL(string: urlString) {
 				var request = URLRequest(url: url)
 				request.httpMethod = "GET"
@@ -42,16 +41,13 @@ struct DetailView: View {
 					}
 
 					if let verifiedData = data {
-
 						DispatchQueue.main.async {
 							let image = UIImage(data: verifiedData)
 							uiImage = image
 						}
-
 					}
 				}.resume()
 			}
-
 		}
 	}
 	

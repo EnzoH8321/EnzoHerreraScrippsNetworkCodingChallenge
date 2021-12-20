@@ -12,7 +12,7 @@ struct iTunesResponseMain: Codable {
 	var results: [iTunesGeneralModel]
 }
 
-//Depending on your inputted parameters, iTunes can return JSON with a variety of different properties. However, there are certain properties that are identical in each return and represents the "core" of all returned data. Use this as a base for creating new structs that will conform to those parameters
+//Depending on your inputted parameters, iTunes can return JSON with a variety of different properties. However, there are certain properties that are identical in each return and represents the "core" of all returned data. Use this as a base for creating new structs that will conform to those parameters.
 //TODO: A more concise way to do this would be to create a seperate data model for each specific filter.
 struct iTunesGeneralModel: Codable, Hashable {
 	var wrapperType: String?

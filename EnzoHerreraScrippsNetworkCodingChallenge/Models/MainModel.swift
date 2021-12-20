@@ -7,9 +7,6 @@
 
 import Foundation
 
-
-
-
 struct MainModel {
 
 	private(set) var arrayOfItunesData: [iTunesGeneralModel] = []
