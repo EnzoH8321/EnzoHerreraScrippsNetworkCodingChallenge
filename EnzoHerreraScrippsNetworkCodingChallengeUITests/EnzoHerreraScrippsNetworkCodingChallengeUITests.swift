@@ -70,7 +70,7 @@ class EnzoHerreraScrippsNetworkCodingChallengeUITests: XCTestCase {
 		XCTAssert(listCell.waitForExistence(timeout: 6))
 	}
 
-	func testListAppearsAfterBadSearchTerm() {
+	func testListDoesNotAppearAfterBadSearchTerm() {
 		let mainViewTextField = self.app.textFields["Search Field"]
 		mainViewTextField.tap()
 		mainViewTextField.typeText("zdfgzxb vxcvzgxcv")

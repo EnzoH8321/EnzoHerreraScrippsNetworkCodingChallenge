@@ -22,7 +22,7 @@ struct FilterSettingsView: View {
 
 
 	var body: some View {
-		NavigationView {
+
 			VStack {
 				Spacer()
 				//If your Picker has to choose from a large variety of elements, consider using the .wheel pickerStyle.
@@ -49,7 +49,7 @@ struct FilterSettingsView: View {
 			.onAppear {
 				self.selectedMedia = viewModel.dataModel.entityValue.rawValue
 			}
-		}
+
 		.toolbar {
 			ToolbarItemGroup(placement: .automatic) {
 
@@ -98,5 +98,6 @@ struct FilterSettingsView: View {
 struct FilterModalView_Previews: PreviewProvider {
 	static var previews: some View {
 		FilterSettingsView()
+			.environmentObject(MainViewModel())
 	}
 }
