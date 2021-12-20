@@ -38,20 +38,17 @@ struct FilterSettingsView: View {
 						}
 
 					}
-					.accessibilityIdentifier("Media Type")
+					.accessibilityIdentifier("Media Type Picker")
 
 					Spacer()
 				}
 				//TODO: If you wanted, you could add more filters below.
-
 				Spacer()
-
 			}
 			.navigationBarTitleDisplayMode(.inline)
 			.onAppear {
 				self.selectedMedia = viewModel.dataModel.entityValue.rawValue
 			}
-
 		}
 		.toolbar {
 			ToolbarItemGroup(placement: .automatic) {
@@ -90,7 +87,6 @@ struct FilterSettingsView: View {
 
 					viewModel.viewModelSetNewEntityfilter(forEntity: convertedPickerValue)
 
-					
 					self.presentationMode.wrappedValue.dismiss()
 				})
 			}

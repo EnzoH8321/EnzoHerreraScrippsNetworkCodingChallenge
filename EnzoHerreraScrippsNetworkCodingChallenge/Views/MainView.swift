@@ -18,7 +18,7 @@ struct ContentView: View {
 			VStack {
 				HStack {
 					TextField("Search Prompt", text: $searchString)
-						.accessibilityLabel("Search Field")
+						.accessibilityIdentifier("Search Field")
 						.padding([.leading], 16)
 
 					Button("Search", action: {
@@ -40,29 +40,29 @@ struct ContentView: View {
 									print("Invalid URL")
 								case .decodingError:
 									print("Issue Decoding JSON")
-								}							
+								}
 							}
 						}
 					})
-						.accessibilityLabel("Search Button")
+						.accessibilityIdentifier("Search Button")
 						.padding([.trailing], 16)
 
 					//When using system symbol image, make sure the symbol is available on the iOS versions you are targeting.
 					NavigationLink(destination: {FilterSettingsView()}) {
 						Image(systemName: "list.dash")
-							.accessibilityLabel("Filter Button")
 							.padding([.trailing], 16)
 					}
 					.navigationBarHidden(true)
-
+					.accessibilityIdentifier("Filter Button")
 				}
 				ListView()
-					.accessibilityLabel("list of returned results")
+					.accessibilityIdentifier("list of returned results")
 			}
 			//Checks the model to see if no results were returned. User is warned so they can try a different query
 			.alert(isPresented: $errorAlert, content: {Alert(title: Text("Error"), message: Text("Error Retrieving Data"))})
 		}
 		.navigationBarHidden(true)
+		.padding([.top], 8)
 	}
 }
 

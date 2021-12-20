@@ -22,6 +22,7 @@ struct DetailView: View {
 				.resizable()
 				.fixedSize()
 			Text("Track Name - \(trackName)")
+				.accessibilityIdentifier("Detail Track Name")
 			Text("Artist Name - \(artistName)")
 			Text("Explicitness - \(explicitContent)")
 			Spacer()
