@@ -201,7 +201,7 @@ extension EnzoHerreraScrippsNetworkCodingChallengeTests {
 					do {
 						let decodedJSONValue = try JSONDecoder().decode(iTunesResponseMain.self, from: verifiedData).results
 
-						//Empty array means that no matches to the query were found
+						//Empty array means that no matches to the query were found. Valid requests that return 0 results will count as a failure for this project. 
 						if (decodedJSONValue.count == 0) {
 							self.sut.viewModelSetNewiTunesData(forData: decodedJSONValue)
 							completionHandler(.failure(.noReturnedResultsError))

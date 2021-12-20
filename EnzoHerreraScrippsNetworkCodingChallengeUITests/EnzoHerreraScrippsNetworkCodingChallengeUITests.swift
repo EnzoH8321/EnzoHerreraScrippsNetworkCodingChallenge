@@ -31,8 +31,7 @@ class EnzoHerreraScrippsNetworkCodingChallengeUITests: XCTestCase {
 
 		let searchBar = app.textFields["Search Field"]
 		let button = app.buttons["Search"]
-		let image = app.images.element
-		let list = app.staticTexts["list of returned results"]
+		let image = app.buttons["Filter Button"]
 		
 		XCTAssert(searchBar.exists)
 		XCTAssert(button.exists)
@@ -83,43 +82,5 @@ class EnzoHerreraScrippsNetworkCodingChallengeUITests: XCTestCase {
 		//When we type a search term that will return an error, we do not want to see a list appear.
 		XCTAssertFalse(listCell.waitForExistence(timeout: 6))
 	}
-
-//	//
-//	func testClickingOnCellGoesToDetailView() {
-//		let mainViewTextField = self.app.textFields["Search Field"]
-//		mainViewTextField.tap()
-//		mainViewTextField.typeText("Bon Jovi")
-//
-//		let searchButton = self.app.buttons["Search Button"]
-//		searchButton.tap()
-//
-//		let listCell = app.segmentedControls["List"]
-//
-//		let text = self.app.staticTexts["Detail Track Name"]
-//
-//		XCTAssert(listCell.exists)
-//		XCTAssert(listCell.waitForExistence(timeout: 15))
-//	}
-//
-//	//Filters View
-//	func testIfTheFiltersChangeSearchTerms() {
-//		let mainViewTextField = self.app.textFields["Search Field"]
-////		mainViewTextField.tap()
-////		mainViewTextField.typeText("Bon Jovi")
-//
-//		//Navigation Link tap
-//		let filterButton = self.app.buttons["Filter Button"]
-//		filterButton.tap()
-//
-//		let mediaPicker = self.app.pickers["Media Type Picker"]
-////		let backButton = self.app.navigationBars.buttons.element(boundBy: 0)
-////		backButton.tap()
-//
-//
-//		XCTAssert(mediaPicker.waitForExistence(timeout: 2))
-//
-//	}
-
-
 
 }
