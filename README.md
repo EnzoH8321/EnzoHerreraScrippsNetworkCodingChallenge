@@ -1,1 +1,1 @@
-Tested on iOS 15.
+Minimum Deployment target is iOS 15.
