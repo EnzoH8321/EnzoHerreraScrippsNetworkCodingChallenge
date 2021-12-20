@@ -76,7 +76,6 @@ extension MainViewModel {
 					do {
 						let decodedJSONValue = try JSONDecoder().decode(iTunesResponseMain.self, from: verifiedData).results
 
-
 						self.objectWillChange.send()
 
 						//Empty array means that no matches to the query were found
@@ -86,6 +85,7 @@ extension MainViewModel {
 							print("Nothing Found")
 						} else {
 							self.viewModelSetNewiTunesData(forData: decodedJSONValue)
+							completionHandler(.success(decodedJSONValue))
 							print("success")
 						}
 
